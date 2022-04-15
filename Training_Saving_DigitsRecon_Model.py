@@ -35,6 +35,7 @@ from tensorflow.keras.applications.vgg16 import VGG16
 
 from DigitsRecon_config import drconfig
 dr = drconfig()
+
 from skimage import io
 import matplotlib.pyplot as plt
 import cv2
@@ -72,8 +73,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 # # using a function to convert gray to RGB
 # =============================================================================
 # =============================================================================
-X_Train = dr.gry2rgb(X_train)
-X_Test = dr.gry2rgb(X_test)
+X_Train = dr.prep4VGGn(X_train)
+X_Test = dr.prep4VGGn(X_test)
 
 
 # =============================================================================
@@ -92,25 +93,23 @@ model.summary()
 # # Use the Convolutinal neural networks layers as automatic feature engineering
 # =============================================================================
 # =============================================================================
-feature_extractor=VGG_model.predict(X_Train)
+feature_extractor_train=model.predict(X_Train)
+feature_extractor_test=model.predict(X_Test)
 
-features = feature_extractor.reshape(feature_extractor.shape[0], -1)
+X_for_training  = feature_extractor.reshape(feature_extractor.shape[0], -1)
 
-X_for_training = features 
-
+x_test_feature = model.predict(X_Test)
+x_test_features = x_test_feature.reshape(x_test_feature.shape[0], -1)
 
 # =============================================================================
 # =============================================================================
 # # fitting the model using the conventional ML classifier 
 # =============================================================================
 # =============================================================================
-
 model = xgb.XGBClassifier()
 
 model.fit(X_for_training, y_train) 
 
-x_val_feature = VGG_model.predict(X_Test)
-x_val_features = x_val_feature.reshape(x_val_feature.shape[0], -1)
 
 
 # =============================================================================
@@ -118,7 +117,10 @@ x_val_features = x_val_feature.reshape(x_val_feature.shape[0], -1)
 # # Now predict using the trained 
 # =============================================================================
 # =============================================================================
-prediction = model.predict(x_val_features)
+
+
+prediction = model.predict(x_test_features)
+
 
 
 # =============================================================================
@@ -147,3 +149,16 @@ sns.heatmap(cm, annot=True,cbar=False)
 ax.set_title("Model accuracy is approx. "+str(acc)+"%")
 
 plt.show()
+
+
+
+# =============================================================================
+# =============================================================================
+# # Save model for future
+# =============================================================================
+# =============================================================================
+#PathToSave_model=dr.SavedModel_path
+#filename = dr.SavedModel_name
+#savemodel_name = filename
+#pickle.dump(model, open(PathToSave_model+filename, 'wb'))
+
