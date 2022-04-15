@@ -28,8 +28,8 @@ class drconfig():
         self.E = 400   #number of estimators 
         #self.g = 2
         #LR = 'default'
-        self.SavedModel_path = "C:\\Users\\AnushKolakalur\\Azure Repository\\Autofocus data\\Saved models\\"
-        self.SavedModel_name = 'Test_model[LR-'+str(self.LR)+'_MD-'+str(self.MD)+'_Est-'+str(self.E)+'].sav'#'_Gamma-'+str(self.g)+'].sav'
+        self.SavedModel_path = "C:\\Users\\AnushKolakalur\\Github reporsitory\\Digits recognition codes\\digits-recon\\Saved models\\"
+        self.SavedModel_name = 'Model[LR-'+str(self.LR)+'_MD-'+str(self.MD)+'_Est-'+str(self.E)+'].sav'#'_Gamma-'+str(self.g)+'].sav'
         #print(SavedModel_name)
 
 # =============================================================================
