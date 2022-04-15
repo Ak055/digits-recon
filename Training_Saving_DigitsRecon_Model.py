@@ -68,6 +68,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     digits.images, digits.target, test_size=0.2, shuffle=False)
 
 
+
 # =============================================================================
 # =============================================================================
 # # using a function to convert gray to RGB
@@ -88,18 +89,23 @@ model = Model(inputs=VGG_model.input, outputs=VGG_model.get_layer('block1_conv2'
 model.summary()
 
 
+
 # =============================================================================
 # =============================================================================
-# # Use the Convolutinal neural networks layers as automatic feature engineering
+# # Use the Convolutinal neural networks layers 
+# # as automatic feature engineering to engineer features foe both train and
+# # test imagesets
 # =============================================================================
 # =============================================================================
 feature_extractor_train=model.predict(X_Train)
 feature_extractor_test=model.predict(X_Test)
 
-X_for_training  = feature_extractor.reshape(feature_extractor.shape[0], -1)
+X_train_features  = feature_extractor_train.reshape(
+    feature_extractor_train.shape[0], -1)
+x_test_features = feature_extractor_test.reshape(
+    feature_extractor_test.shape[0], -1)
 
-x_test_feature = model.predict(X_Test)
-x_test_features = x_test_feature.reshape(x_test_feature.shape[0], -1)
+
 
 # =============================================================================
 # =============================================================================
@@ -108,7 +114,7 @@ x_test_features = x_test_feature.reshape(x_test_feature.shape[0], -1)
 # =============================================================================
 model = xgb.XGBClassifier()
 
-model.fit(X_for_training, y_train) 
+model.fit(X_train_features, y_train) 
 
 
 
@@ -117,8 +123,6 @@ model.fit(X_for_training, y_train)
 # # Now predict using the trained 
 # =============================================================================
 # =============================================================================
-
-
 prediction = model.predict(x_test_features)
 
 
@@ -133,6 +137,7 @@ acc = metrics.accuracy_score(y_test, prediction)
 acc = acc*100
 acc = round(acc,3)
 print ("Validation Accuracy = ",acc)
+
 
 
 # =============================================================================
@@ -157,8 +162,8 @@ plt.show()
 # # Save model for future
 # =============================================================================
 # =============================================================================
-#PathToSave_model=dr.SavedModel_path
-#filename = dr.SavedModel_name
-#savemodel_name = filename
-#pickle.dump(model, open(PathToSave_model+filename, 'wb'))
+PathToSave_model=dr.SavedModel_path
+filename = dr.SavedModel_name
+savemodel_name = filename
+pickle.dump(model, open(PathToSave_model+filename, 'wb'))
 
