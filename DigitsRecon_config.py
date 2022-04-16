@@ -89,6 +89,10 @@ class drconfig():
         new_images = np.array(n_images)
         return new_images
 
+    def fordisp(self,images):
+        im = cv2.resize(images,(8,8),cv2.INTER_LINEAR)
+        return im
+    
 
 
 
