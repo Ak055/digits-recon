@@ -4,7 +4,6 @@ Created on Thu Apr 14 14:34:21 2022
 
 @author: AnushKolakalur
 """
-
 # =============================================================================
 #  XGBoost for image classification
 #  pretrained weights (VGG16) as feature extractors.
