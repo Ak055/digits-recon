@@ -1,5 +1,6 @@
 import cv2 
 import numpy as np
+import os
 
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
@@ -13,12 +14,8 @@ import seaborn as sns
 import pickle
 from tensorflow.keras.applications.vgg16 import VGG16
 
-
 from skimage import io
 import matplotlib.pyplot as plt
-import cv2
-import numpy as np
-
 
 
 class drconfig():
@@ -31,9 +28,9 @@ class drconfig():
 # =============================================================================
 # =============================================================================
 # =============================================================================
-        self.SavedModel_path = "C:\\Users\\AnushKolakalur\\Github repository\\digits-recon\\Saved models\\"
+        self.SavedModel_path = os.path.join(os.getcwd(),'Saved models'+os.sep)
         self.SavedModel_name = 'Model[default_params].sav'
-        self.Saveplot4dis = 'C:\\Users\\AnushKolakalur\\Github repository\\digits-recon\\'
+        self.Saveplot4dis = os.path.join(os.getcwd()+os.sep)
         #print(SavedModel_name)
 
 # =============================================================================
