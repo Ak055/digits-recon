@@ -29,15 +29,32 @@ while True:
     
     print("\n The test image will be displayed for a while and then the model predicts the digit \n")
     test_image_path = test_image_path-1
-    dr.fordisp(dr.X_test[test_image_path])
-       
+    #dr.fordisp(dr.X_test[test_image_path])
+    
+# =============================================================================
+# =============================================================================
+# # path of the test image recieved       
+# =============================================================================
+# =============================================================================
     num = test_image_path
     
+# =============================================================================
+# =============================================================================
+# # the test image is prepared for CNN in the VGGnet to extract features
+# =============================================================================
+# =============================================================================
+
     test_image = dr.prep4VGGn(dr.X_test[num])
         
     test_image_feature=dr.VGG_net_mod.predict(test_image)
     test_image_features = test_image_feature.reshape(
         test_image_feature.shape[0], -1)
+
+# =============================================================================
+# =============================================================================
+# # the trained model is loaded and a prediction is obtained
+# =============================================================================
+# =============================================================================
     
     Trained_model = dr.load_trained_model()
     
@@ -45,7 +62,11 @@ while True:
     
     print("\n Prediction is sent \n")
 
-    #  Send reply back to client
+# =============================================================================
+# =============================================================================
+# # Sending the prediction to the sender
+# =============================================================================
+# =============================================================================
     socket.send_string("The prediction is --> digit "+str(prediction))
     
     n += 1
