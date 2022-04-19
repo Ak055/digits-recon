@@ -10,5 +10,6 @@ seaborn==0.11.2
 tensorboard==2.8.0
 tensorflow==2.8.0
 xgboost==1.5.2
+zmq
 
 
