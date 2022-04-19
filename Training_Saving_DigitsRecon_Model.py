@@ -95,9 +95,9 @@ plt.show()
 # # Save model for future
 # =============================================================================
 # =============================================================================
-#PathToSave_model=dr.SavedModel_path
-#filename = dr.SavedModel_name
-#savemodel_name = filename
-#pickle.dump(model, open(PathToSave_model+filename, 'wb'))
+PathToSave_model=dr.SavedModel_path
+filename = dr.SavedModel_name
+savemodel_name = filename
+pickle.dump(model, open(PathToSave_model+filename, 'wb'))
 
 
